@@ -1,0 +1,9 @@
+html
+    head
+        title DeepModerator's Server List
+    body
+        h1 #{count} Servers
+        ul
+            each val in servers
+                li
+                    a(href=`/${val.serverId}`)= val.serverName

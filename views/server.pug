@@ -1,0 +1,10 @@
+html
+    head
+        title= server.serverName
+    body
+        h1= server.serverName
+        p Guild Members: #{server.memberCount}
+        p Joined: #{server.joined}
+        p Images Filtered: #{server.imageFilterCount}
+        p Swear Filter: #{server.swearFilter ? 'On' : 'Off'}
+        a(href='/') Back
