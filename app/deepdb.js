@@ -7,14 +7,16 @@ module.exports = {
     async getAllServers() {
         const servers = await pool.query('SELECT * FROM config')
 
-        if(servers.rowCount) {
+        if (servers.rowCount) {
             const result = []
 
-            for(let server of servers.rows) {
+            for (let server of servers.rows) {
                 const serverObj = JSON.parse(server.data)
                 serverObj.serverId = server.server_id
 
-                result.push(serverObj)
+                if (serverObj.serverName) {
+                    result.push(serverObj)
+                }
             }
 
             return result
@@ -26,7 +28,7 @@ module.exports = {
 
         console.log(server.rowCount)
 
-        if(server.rowCount) {
+        if (server.rowCount) {
             const result = server.rows[0]
             return JSON.parse(result.data)
         }
