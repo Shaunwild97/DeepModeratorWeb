@@ -1,10 +1,28 @@
 html
     head
         title= server.serverName
+        style.
+            #config {
+                white-space: pre;
+                border: 2px dashed gray;
+                background: #DDDDDD;
+                display: inline-block;
+                padding: 10px;
+            }
+
+            body {
+                font-family: 'Courier';
+            }
+            
+            .string {
+                font-weight: bold;
+                color: #580295;
+            }
     body
         h1= server.serverName
-        p Guild Members: #{server.memberCount}
-        p Joined: #{server.joined}
-        p Images Filtered: #{server.imageFilterCount}
-        p Swear Filter: #{server.swearFilter ? 'On' : 'Off'}
-        a(href='/') Back
+        div#config!= serverConfig
+        - const date = getTimeSince(new Date(server.lastUpdated))
+        - const joined = getTimeSince(new Date(server.joined))
+        p Last updated: #{date} ago
+        p Joined: #{joined} ago
+        a(href="/") Back
