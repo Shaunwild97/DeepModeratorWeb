@@ -18,22 +18,22 @@ module.exports = {
         const months = days / 30
         const years = months / 12
 
-        if(years > 1) {
+        if (years > 1) {
             return `${Math.round(years)} years`
         }
-        if(months > 1) {
+        if (months > 1) {
             return `${Math.round(months)} months`
         }
-        if(days > 1) {
+        if (days > 1) {
             return `${Math.round(days)} days`
         }
-        if(hours > 1) {
+        if (hours > 1) {
             return `${Math.round(hours)} hours`
         }
-        if(minutes > 1) {
+        if (minutes > 1) {
             return `${Math.round(minutes)} minutes`
         }
-        if(seconds > 1) {
+        if (seconds > 1) {
             return `${Math.round(seconds)} seconds`
         }
 
