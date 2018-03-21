@@ -1,11 +1,15 @@
 module.exports = {
     prettifyAsHTML(json) {
+        if (json) {
+            return json
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/("(?:\w|[ :|.-])+")/g, `<span class="string">$1</span>`)
+                .replace(/\n/g, "<br />")
+        }
+
         return json
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/("(?:\w|[ :|.-])+")/g, `<span class="string">$1</span>`)
-            .replace(/\n/g, "<br />")
     },
 
     getTimeSince(date) {
