@@ -2,6 +2,8 @@ const express = require('express')
 const Database = require('./app/deepdb')
 const JsonUtil = require('./app/jsonutil')
 
+const files = require('./app/sound')
+
 const app = express()
 
 app.get('/', (req, res) => {
@@ -9,9 +11,14 @@ app.get('/', (req, res) => {
         .then(servers => res.render('servers', { servers, count: servers.length }))
 })
 
-app.get('/:server', (req, res) => {
+app.get('/server/:server', (req, res) => {
     Database.getServer(req.params.server)
         .then(server => res.render('server', { getTimeSince: JsonUtil.getTimeSince, server, serverConfig: JsonUtil.prettifyAsHTML(JSON.stringify(server, null, 2)) }))
+})
+
+app.get('/sound', (req, res) => {
+    const sound = files[Math.round(Math.random() * files.length)]
+    res.send({sound})
 })
 
 app.set('view engine', 'pug')
