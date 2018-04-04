@@ -14,6 +14,10 @@ html
                 display: inline-block;
             }
 
+            a.inactive {
+                opacity: 0.2;
+            }
+
             a {
                 padding: 5px;
                 background: #DDDDDD;
@@ -25,10 +29,15 @@ html
 
             a:hover {
                 color: #AAAAAA;
+                opacity: 1 !important;
+            }
+
+            .login {
+                float: right;
             }
     body
         h1 #{count} Servers
         ul
             each val in servers
                 li
-                    a(href=`/server/${val.serverId}`)= val.serverName
+                    a(href=`/server/${val.serverId}` class=`${val.timeSinceUpdate > (1000 * 60 * 60 * 24 * 14) ? 'inactive' : 'active'}`)= val.serverName

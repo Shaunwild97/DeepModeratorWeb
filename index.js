@@ -8,7 +8,10 @@ const app = express()
 
 app.get('/', (req, res) => {
     Database.getAllServers()
-        .then(servers => res.render('servers', { servers, count: servers.length }))
+        .then(servers => { 
+            servers.forEach(s => s.timeSinceUpdate = (new Date().getTime() - (new Date(s.lastUpdated))))
+            res.render('servers', { servers, count: servers.length }) 
+        })
 })
 
 app.get('/server/:server', (req, res) => {
@@ -16,9 +19,13 @@ app.get('/server/:server', (req, res) => {
         .then(server => res.render('server', { getTimeSince: JsonUtil.getTimeSince, server, serverConfig: JsonUtil.prettifyAsHTML(JSON.stringify(server, null, 2)) }))
 })
 
-app.get('/sound', (req, res) => {
-    const sound = files[Math.round(Math.random() * files.length)]
-    res.send({sound})
+app.get('/admin', (req, res) => {
+    res.render('admin.pug')
+})
+
+app.post('/admin', (req, res) => {
+    console.log(JSON.stringify(req.body))
+    res.send(req.body)
 })
 
 app.set('view engine', 'pug')

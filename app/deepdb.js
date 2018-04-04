@@ -26,8 +26,6 @@ module.exports = {
     async getServer(id) {
         const server = await pool.query('SELECT * FROM config WHERE server_id=$1', [id])
 
-        console.log(server.rowCount)
-
         if (server.rowCount) {
             const result = server.rows[0]
             return JSON.parse(result.data)
