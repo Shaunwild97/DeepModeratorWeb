@@ -10,7 +10,8 @@ app.get('/', (req, res) => {
     Database.getAllServers()
         .then(servers => { 
             servers.forEach(s => s.timeSinceUpdate = (new Date().getTime() - (new Date(s.lastUpdated))))
-            res.render('servers', { servers, count: servers.length }) 
+            const active = servers.filter(s => s.timeSinceUpdate < (1000 * 60 * 60 * 24 * 14)).length
+            res.render('servers', { servers, count: servers.length, active }) 
         })
 })
 
